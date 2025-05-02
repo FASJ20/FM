@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url';
 
 
 
+
 // Environment variables
 const PORT =  process.env.PORT;
 const SESSION_SECRET =  process.env.SESSION_SECRET;
@@ -31,6 +32,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Static file
 app.use(express.static("public"));
+
 
 
 // connecting to database
@@ -73,6 +75,7 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
     res.render("./auth/login");
 });
+
 
 // RUN APPLICATION FROM PORT 4100
 

@@ -54,3 +54,19 @@ h2 {
 p {
     margin-top: 15px;
 }
+.header {
+    display: flex;
+    font-size: 30px;
+    padding: 20px;
+
+}
+.nav {
+    display: flex;
+    padding: 8px;
+    background-color: aliceblue;
+    
+    
+}
+a:hover{
+    background-color: aqua;
+}

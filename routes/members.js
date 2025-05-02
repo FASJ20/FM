@@ -83,7 +83,7 @@ router.get("/api/members/:id", async (req, res) => {
     
     } catch (err) {
         console.error("error:", err);
-        res.status(500).json({ error: err.message || "failed to get member" });
+        res.redirect('/error')
     }
 });
 //update a user record
