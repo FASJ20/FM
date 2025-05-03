@@ -9,13 +9,13 @@ const MemberSchema = new mongoose.Schema({
     lastname: {
         type: mongoose.Schema.Types.String,
         required: true,
-        unique: true,
+        
     },
     age:{
         type: mongoose.Schema.Types.Number,
         required: true,
     },
-    DateOfBirth: {
+    dateofbirth: {
         type: mongoose.Schema.Types.Date,
         required: true,
     },

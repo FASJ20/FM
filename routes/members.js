@@ -27,13 +27,13 @@ router.get("/api/users/:id", async (req, res) => {
     try{
         console.log(id);
         const findUser = await User.findOne({ _id: id.id }); //Find user by the ID
-        if (!findUser) throw new Error("User not found"); //When user isn't found
+        if (!findUser) return res.redirect('/error'); //When user isn't found
     
         res.status(200).send(findUser) //Sends the user response
     
     } catch (err) {
         console.error("error:", err);
-        res.status(500).json({ error: err.message || "failed" });
+        res.redirect('/error').json({ error: err.message || "failed" });
     }
 });
 // To get all members
@@ -41,7 +41,7 @@ router.get("/api/members", async (req, res) => {
     try{
         const member = await Member.find();
        
-        if (!member) throw new Error("User not found");
+        if (!member) return res.redirect('/error');
                 
         res.status(200).send(member)
     
@@ -53,8 +53,7 @@ router.get("/api/members", async (req, res) => {
 //To add family members
 router.post("/api/member/add", async (req, res) => {
     const { body } = req;
-    console.log(body);
-    
+    console.log("trying to do this...");
     console.log(body);
     try {
         // To get a members record
@@ -63,8 +62,7 @@ router.post("/api/member/add", async (req, res) => {
             lastname: body.lastname,
             age: body.age,
             gender: body.gender,
-            email: body.email,
-            DateofBirth: body.dateofBirth,
+            dateofbirth: body.dateofbirth,
         }).save().then(user => {
             
             console.log('User created successfully:', user.toJSON());
@@ -83,9 +81,10 @@ router.get("/api/member/:id", async (req, res) => {
     try{
         // Find members by id
         const findMember = await Member.findOne({ _id: id.id });
-        if (!findMember) throw new Error("Member not found");
+        console.log(findMember._id);
+        if (!findMember) return res.redirect('/error');
     
-        res.status(200).send(findMember)
+        res.redirect(`/member`, {data: findMember._id});
     
     } catch (err) {
         console.error("error:", err);
@@ -93,7 +92,7 @@ router.get("/api/member/:id", async (req, res) => {
     }
 });
 //update a user record
-router.patch("/api/users/update/:id", async (req, res) => {
+router.post("/api/users/update/:id", async (req, res) => {
     const { body, params: id } = req;
     body.password = hashPassword(body.password); //To hash the updated password
     try{
@@ -131,17 +130,17 @@ router.delete("/api/users/delete/:id", async (req, res) => {
 });
 
 // Update Member's record
-router.patch("/api/member/update/:id", async (req, res) => {
+router.post("/api/member/update/:id", async (req, res) => {
     const { body, params: id } = req;
     
     try{
        
         const UpdateMember = await Member.updateOne({ _id: id.id }, {$set: body});  // To get the user by Id and update the body
         
-        if (!UpdateMember) throw new Error("User not cannot be updated");
+        if (!UpdateMember) return res.redirect('/error');
         
     
-        res.status(200).send(UpdateMember)
+        res.redirect('/member')
     
     } catch (err) {
         console.error("error:", err);
@@ -150,17 +149,17 @@ router.patch("/api/member/update/:id", async (req, res) => {
 });
 
 // Delete member
-router.delete("/api/users/delete/:id", async (req, res) => {
+router.post("/api/member/delete/:id", async (req, res) => {
     const { params: id } = req;
     
     try{
        
         const deleteMember = await Member.deleteOne({ _id: id.id });
         
-        if (!deleteMember) throw new Error("User not cannot be updated");
+        if (!deleteMember) return res.redirect('/error');
         
     
-        res.status(200).send(deleteMember)
+        res.redirect('/members')
     
     } catch (err) {
         console.error("error:", err);

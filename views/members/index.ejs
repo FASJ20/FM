@@ -4,42 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>members</title>
-    <link rel="stylesheet" href="/main.css">
-</head>
-<body>
-    <h1>Data Table</h1>
-    <button class="add"><a href="/member/add">Add a member</a></button>
-  <table id="data-table">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>lastname</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Date of birth</th>
-        <th>Gender</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Data will be inserted here -->
-    </tbody>
-  </table>
+    <style>
+        .container{
+            width: 600px;
+            height: fit-content;
+            margin: 0 auto;
+            margin-top: 200px;
+        }
+        .container .one h1 {
+            font-size: 5rem;
+        }
+        .container .add-member {
+            text-decoration: none;
+        }
+        .container .add-member .two {
+            width: 100px;
+            height: fit-content;
+            border: 1px solid black;
+            padding: 4px 7px;
+        }
+        .container .add-member .two:hover {
+            background-color: rgb(28, 187, 84);
+            color: white;
+        }
+        .container .add-member .two:active {
+            background-color: black;
+        }
+        .body
+        {
+            width: 100%;
+            height: fit-content;
+        }
+        .body .data-table {
+            width: 100%;
+            height: fit-content;
+        }
+        .body .data-table th {
+            width: 50px;
+            height: 20px;
+            border-bottom: 1px solid black;
+        }
+        .body .data-table td {
+            width: 50px;
+            height: 20px;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+    </style>
 
-  <script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <div class="one" style="display: inline;">
+                <h1>Members</h1>
+            </div>
+                <a class="add-member" href="/member/add">
+                    <div class="two">
+                        Add a member
+                    </div>
+                </a>
+            
+        </div>
+        <hr>
+        <div class="body">
+            <table class="data-table" id="data-table">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>lastname</th>
+                        <th>Age</th>
+                        <th>Date of birth</th>
+                        <th>Gender</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <hr>
+    </div>
+</div>
+
+<script>
     // Fetch data from the server and display it in the table
     fetch('/api/members')
       .then(response => response.json())
       .then(data => {
-        const tableBody = document.querySelector('#data-table tbody');
+        const tableBody = document.querySelector('#data-table');
         data.forEach(item => {
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${item.firstname}</td>
             <td>${item.lastname}</td>
             <td>${item.age}</td>
-            <td>${item.email}</td>
             <td>${item.dateofbirth}</td>
             <td>${item.gender}</td>
+            <td>
+                <form method="POST" action="/member/update">
+                <input type="hidden" name="id" value="${item._id}">
+                <button style="background-color: green;">Edit</button>
+                </form>
+
+                <form method="POST" action="/api/member/delete/${item._id}">
+                
+                <button style="background-color: red;">delete</button>
+                </form>
+                <a href="/member/${item._id}" style= "background-color: blue;">Show</a>
+
+
+                
+            </td>
+            
             
           `;
           tableBody.appendChild(row);
