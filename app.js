@@ -69,11 +69,21 @@ app.use(membersRouter);
 app.get('/', (req, res) => {
     res.render("./dashboard");
 });
+
 app.get('/register', (req, res) => {
     res.render("./auth/signup");
 });
+
 app.get('/login', (req, res) => {
     res.render("./auth/login");
+});
+
+app.get('/members', (req, res) => {
+    res.render("./members/index.ejs");
+});
+
+app.get('/member/add', (req, res) => {
+    res.render("./members/addmember.ejs");
 });
 
 

@@ -4,8 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>members</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
-    
+    <h1>Data Table</h1>
+    <button class="add"><a href="/member/add">Add a member</a></button>
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>lastname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be inserted here -->
+    </tbody>
+  </table>
+
+  <script>
+    // Fetch data from the server and display it in the table
+    fetch('/api/members')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#data-table tbody');
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.firstname}</td>
+            <td>${item.lastname}</td>
+            <td>${item.age}</td>
+            <td>${item.email}</td>
+            <td>${item.dateofbirth}</td>
+            <td>${item.gender}</td>
+            
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
 </body>
 </html>

@@ -9,7 +9,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: "../assets/2972012.jpg";
+    background-image: "./public/assets/2972012.jpg";
 }
 
 h2 {
@@ -54,19 +54,51 @@ h2 {
 p {
     margin-top: 15px;
 }
+
 .header {
-    display: flex;
-    font-size: 30px;
+    display: inline-flex;
+    font-size: 60px;
     padding: 20px;
+    align-items: first baseline;
 
 }
-.nav {
+
+ul {
     display: flex;
-    padding: 8px;
-    background-color: aliceblue;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li a {
+    display: flex;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 60px;
+    font-style: normal;
     
     
 }
 a:hover{
     background-color: aqua;
+}
+
+.add {
+    display: block;
+    width: 10%;
+    padding: 10px;
+    background-color: rgb(23, 48, 172);
+    color: #ccc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.add:hover {
+    background-color: rebeccapurple;
 }

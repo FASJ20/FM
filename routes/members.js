@@ -7,16 +7,6 @@ const router = Router();
 // To get all users
 router.get("/api/users", async (req, res) => {
     try{
-        console.log(req.session);
-        console.log(req.session.id);
-        req.session.visited = true;
-        req.sessionStore.get(req.session.id, (err, sessionData) => {
-            if(err){
-                console.log(err);
-                throw err;
-            }
-            console.log(sessionData);
-        })
         const users = await User.find();
        
         if (!users) throw new Error("User not found");
@@ -28,6 +18,8 @@ router.get("/api/users", async (req, res) => {
         res.status(500).send("Error:", err);
     }
 });
+
+       
 
 // To get the user by ID
 router.get("/api/users/:id", async (req, res) => {
@@ -44,8 +36,22 @@ router.get("/api/users/:id", async (req, res) => {
         res.status(500).json({ error: err.message || "failed" });
     }
 });
+// To get all members
+router.get("/api/members", async (req, res) => {
+    try{
+        const member = await Member.find();
+       
+        if (!member) throw new Error("User not found");
+                
+        res.status(200).send(member)
+    
+    } catch (err) {
+        console.log("Error: ", err);
+        res.status(500).send("Error:", err);
+    }
+});
 //To add family members
-router.post("/api/members/add", async (req, res) => {
+router.post("/api/member/add", async (req, res) => {
     const { body } = req;
     console.log(body);
     
@@ -58,11 +64,11 @@ router.post("/api/members/add", async (req, res) => {
             age: body.age,
             gender: body.gender,
             email: body.email,
-            dateofBirth: body.dateofBirth,
+            DateofBirth: body.dateofBirth,
         }).save().then(user => {
             
             console.log('User created successfully:', user.toJSON());
-            return res.status(201).send(user.toJSON())
+            return res.redirect('/members')
           }).catch(err => {
             console.error('Error creating user:', err);
           });
@@ -72,7 +78,7 @@ router.post("/api/members/add", async (req, res) => {
     }
 });
 // Show members info
-router.get("/api/members/:id", async (req, res) => {
+router.get("/api/member/:id", async (req, res) => {
     const { params: id } = req;
     try{
         // Find members by id
