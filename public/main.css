@@ -9,7 +9,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: "./public/assets/2972012.jpg";
+    background-image: url("./assets/2972012.jpg");
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, top right;
 }
 
 h2 {
@@ -30,6 +33,7 @@ h2 {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    color: white;
 }
 .form-group input {
     width: 100%;
