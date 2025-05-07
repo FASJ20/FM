@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { User } from "../models/user.js";
 import { comparePassword, hashPassword } from "../helpers.js";
-import { body } from "express-validator";
+
+
 
 
 
@@ -13,11 +14,11 @@ const router = Router();
 
 
 // To register the user and store in the database
-router.post("/register", async (req, res) => {
+router.post("/register",  async (req, res) => {
     const { body } = req;
-    console.log(body);
+    
     body.password = hashPassword(body.password); // To hash the password and store on the database after the user inputs it
-    console.log(body);
+   
     try {
         // To collect the user data
         new User({
