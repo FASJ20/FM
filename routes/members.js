@@ -102,7 +102,7 @@ router.post("/api/users/update/:id", async (req, res) => {
         if (!UpdateUser) throw new Error("User not cannot be updated");
         
         // Response with the user
-        res.status(200).send(UpdateUser)
+        res.redirect('/members')
     
     } catch (err) {
         console.error("error:", err);
@@ -140,7 +140,7 @@ router.post("/api/member/update/:id", async (req, res) => {
         if (!UpdateMember) return res.redirect('/error');
         
     
-        res.redirect('/member')
+        res.redirect('/members')
     
     } catch (err) {
         console.error("error:", err);

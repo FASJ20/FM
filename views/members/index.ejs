@@ -79,9 +79,29 @@
                         <th>Gender</th>
                         <th>Actions</th>
                     </tr>
+                    <% let items = data %>
                 </thead>
                 <tbody>
-                    <!-- Data will be inserted here -->
+                    <% items.forEach(element => {%>
+                        <tr>
+                            <td><%= element.firstname %></td>
+                            <td><%= element.lastname %></td>
+                            <td><%= element.age %></td>
+                            <td><%= element.dateofbirth.toISOString().split('T')[0];  %></td>
+                            <td><%= element.gender %></td>
+                            <td>
+                                <form method="POST" action="/member/update">
+                                    <button style="background-color: green;">Edit</button>
+                                    <input type="hidden" name="id" value="<%= element.id %>">
+                                </form>
+                                <form method="POST" action="/api/member/delete/<%= element.id %>">
+                                    <button style="background-color: red;">delete</button>
+                                </form>
+                                <a href="/member/<%= element.id %>" style= "background-color: blue;">Show</a>
+                            </td>
+                        </tr>
+                   <% }); %>
+                    
                 </tbody>
             </table>
         </div>
@@ -89,42 +109,6 @@
     </div>
 </div>
 
-<script>
-    // Fetch data from the server and display it in the table
-    fetch('/api/members')
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.querySelector('#data-table');
-        data.forEach(item => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${item.firstname}</td>
-            <td>${item.lastname}</td>
-            <td>${item.age}</td>
-            <td>${item.dateofbirth}</td>
-            <td>${item.gender}</td>
-            <td>
-                <form method="POST" action="/member/update">
-                <input type="hidden" name="id" value="${item._id}">
-                <button style="background-color: green;">Edit</button>
-                </form>
 
-                <form method="POST" action="/api/member/delete/${item._id}">
-                
-                <button style="background-color: red;">delete</button>
-                </form>
-                <a href="/member/${item._id}" style= "background-color: blue;">Show</a>
-
-
-                
-            </td>
-            
-            
-          `;
-          tableBody.appendChild(row);
-        });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  </script>
 </body>
 </html>

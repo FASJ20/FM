@@ -10,6 +10,8 @@ import 'dotenv/config';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { Member } from './models/members.js';
+import { comparePassword } from './helpers.js';
+import { error } from 'console';
 
 
 
@@ -65,10 +67,23 @@ app.use(authRouter);
 // Using the members route
 app.use(membersRouter);
 
+//  app.use( async (req, res, next) => {
+//     if (req.session.id === await sessions.findOne(id._id)){
+//         next()
+//     } else {
+//         res.render('./auth/login')
+//     }
+// })
+
 
 // home route
 app.get('/', (req, res) => {
-    res.render("./dashboard");
+    if (req.session.user ){
+        
+        res.render("./dashboard");
+    } else {
+        res.render('./auth/login', { error: null})
+    }
 });
 //To get to the signup page
 app.get('/register', (req, res) => {
@@ -77,12 +92,15 @@ app.get('/register', (req, res) => {
 
 //TO get to the login page
 app.get('/login', (req, res) => {
-    res.render("./auth/login");
+    
+     res.render("./auth/login", { error: null });
+    
 });
 
 //To show all members
-app.get('/members', (req, res) => {
-    res.render("./members/index.ejs");
+app.get('/members', async (req, res) => {
+    let Data = await Member.find()
+    res.render("./members/index.ejs", {data: Data} );
 });
 //To route to the add members page
 app.get('/member/add', (req, res) => {

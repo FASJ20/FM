@@ -9,6 +9,9 @@
 <body>
     <div class="form-container">
         <h2>Login</h2>
+        <% if (error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -19,10 +22,17 @@
                 <label for="password">password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password">
             </div>
+            
+            
+           
+                
+            
+
             <button type="submit" class="submit-btn">Login</button>
             <p>Don't have an account? <a href="/register">signup</a></p>
         </form>
     </div>
+
     
 </body>
 </html>

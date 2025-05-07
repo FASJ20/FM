@@ -51,11 +51,15 @@ router.post("/login", async (req, res) => {
         
         // Importing the compare password variable to see if the user password matches with the hashed password in the database
         if (!comparePassword(password, findUser.password)) {
-            return res.redirect('/login')
+            return res.render('./auth/login', { error: "Wrong credentials. Please try again"})
         }
-        req.session.email = findUser;
+        
+            
+        req.session.user = findUser;
         console.log(req.session);
         return res.redirect('/')
+
+        
     
     } catch (err) {
         console.error("Login error:", err);
