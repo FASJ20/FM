@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import { Member } from './models/members.js';
 import { comparePassword } from './helpers.js';
 import { error } from 'console';
+import { User } from './models/user.js';
 
 
 
@@ -77,10 +78,10 @@ app.use(membersRouter);
 
 
 // home route
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     if (req.session.user ){
-        
-        res.render("./dashboard");
+        let data = await User.findOne()
+        res.render("./dashboard", {item: data});
     } else {
         res.render('./auth/login', { error: null})
     }
