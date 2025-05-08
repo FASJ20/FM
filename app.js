@@ -39,6 +39,7 @@ app.use(express.static("public"));
 
 
 
+
 // connecting to database
 mongoose.connect(MONGO_URL)
     .then(() => console.log('connected to database'))
