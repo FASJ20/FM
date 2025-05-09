@@ -1,0 +1,20 @@
+version: "3"
+services:
+  mongo_db:
+    container_name: mydatabase
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  app:
+    build: .
+    ports:
+      - 4100:4100
+    environment:
+      PORT : 4100
+      MONGO_URL : "mongodb://mongo_db:27017/FM"
+      SESSION_SECRET : "merorec"
+
+volumes:
+  mongo_db: {}
