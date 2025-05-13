@@ -37,14 +37,14 @@
   
         <div class="nav">
             <ul>
-                <li><a href="./partials/about.ejs">About</a></li>
+                <li><a href="/partials">About</a></li>
                 <li><a href="/members">Members</a></li>
                 <li><a href="/login">logout</a></li>
             </ul>
         </div>
     </div>
     <div class="hero">
-        <h1>WELCOME <%= item.username %></h1>
+        <h1>WELCOME <%= item.username.toUpperCase() %></h1>
     </div>
 </body>
 </html>

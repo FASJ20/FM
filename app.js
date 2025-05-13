@@ -79,10 +79,10 @@ app.use(membersRouter);
 
 
 // home route
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
+    
     if (req.session.user ){
-        let data = await User.findOne()
-        res.render("./dashboard", {item: data});
+        res.render("./dashboard", {item: req.session.user});
     } else {
         res.render('./auth/login', { error: null})
     }
@@ -125,6 +125,10 @@ app.get('/member/:id', async (req, res) => {
 
 app.get('/error', (req, res) => {
     res.render('./404.ejs')
+})
+//To get partials
+app.get('/partials', (req, res) => {
+    res.render('./partials/about.ejs')
 })
 
 
