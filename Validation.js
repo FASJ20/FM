@@ -38,16 +38,7 @@ export const createUserRegValSchema = {
 };
 
 
-export const createUserLoginValSchema= {
-    email: {
-        notEmpty: {
-            errorMessage: "Email is not supposed to be empty"
-        },
-        isEmail: {
-            errorMessage: "Must be an email"
-        },
-    },
-};
+
 
 export const createMemberCreationValSchema = {
     firstname: {
