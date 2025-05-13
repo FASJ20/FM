@@ -2,7 +2,7 @@ import { Router } from "express";
 import { User } from "../models/user.js";
 import { comparePassword, hashPassword } from "../helpers.js";
 import { query, validationResult, checkSchema, matchedData } from 'express-validator';
-import { createMemberCreationValSchema, createUserLoginValSchema, createUserRegValSchema } from "../Validation.js";
+import { createUserRegValSchema } from "../Validation.js";
 
 
 

@@ -3,7 +3,7 @@ import { User } from "../models/user.js";
 import { Member } from "../models/members.js";
 import { comparePassword, hashPassword } from "../helpers.js";
 import { query, validationResult, checkSchema, matchedData } from 'express-validator';
-import { createMemberCreationValSchema, createUserLoginValSchema, createUserRegValSchema } from "../Validation.js";
+import { createMemberCreationValSchema} from "../Validation.js";
 
 const router = Router();
 // To get all users

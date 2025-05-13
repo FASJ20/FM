@@ -130,6 +130,10 @@ app.get('/error', (req, res) => {
 app.get('/partials', (req, res) => {
     res.render('./partials/about.ejs')
 })
+app.get('/logout', (req, res) => {
+    delete req.session.user;
+    res.redirect('/login')
+})
 
 
 
