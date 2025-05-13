@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { User } from "../models/user.js";
 import { comparePassword, hashPassword } from "../helpers.js";
+import { query, validationResult, checkSchema, matchedData } from 'express-validator';
+import { createMemberCreationValSchema, createUserLoginValSchema, createUserRegValSchema } from "../Validation.js";
 
 
 
@@ -14,10 +16,12 @@ const router = Router();
 
 
 // To register the user and store in the database
-router.post("/register",  async (req, res) => {
+router.post("/register", checkSchema(createUserRegValSchema), async (req, res) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) return res.send(result.array());
     const { body } = req;
-    
     body.password = hashPassword(body.password); // To hash the password and store on the database after the user inputs it
+
    
     try {
         // To collect the user data

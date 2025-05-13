@@ -10,9 +10,9 @@
     <div class="info">
         <h1><%= item.firstname %> <%= item.lastname %>'s information</h1>
         <ul>
-            <li><%= item.age %></li>
-            <li><%= item.dateofbirth %></li>
-            <li><%= item.gender %></li>
+            <li> Age: <%= item.age %></li>
+            <li>Date of birth: <%= item.dateofbirth.toISOString().split('T')[0]; %></li>
+            <li>Gender: <%= item.gender %></li>
 
 
         </ul>

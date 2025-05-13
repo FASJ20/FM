@@ -2,6 +2,8 @@ import { Router } from "express";
 import { User } from "../models/user.js";
 import { Member } from "../models/members.js";
 import { comparePassword, hashPassword } from "../helpers.js";
+import { query, validationResult, checkSchema, matchedData } from 'express-validator';
+import { createMemberCreationValSchema, createUserLoginValSchema, createUserRegValSchema } from "../Validation.js";
 
 const router = Router();
 // To get all users
@@ -51,10 +53,11 @@ router.get("/api/members", async (req, res) => {
     }
 });
 //To add family members
-router.post("/api/member/add", async (req, res) => {
+router.post("/api/member/add", checkSchema(createMemberCreationValSchema), async (req, res) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) return res.send(result.array());
     const { body } = req;
-    console.log("trying to do this...");
-    console.log(body);
+   
     try {
         // To get a members record
         new Member({
@@ -65,7 +68,7 @@ router.post("/api/member/add", async (req, res) => {
             dateofbirth: body.dateofbirth,
         }).save().then(user => {
             
-            console.log('User created successfully:', user.toJSON());
+            console.log('Member created successfully:', user.toJSON());
             return res.redirect('/members')
           }).catch(err => {
             console.error('Error creating user:', err);
