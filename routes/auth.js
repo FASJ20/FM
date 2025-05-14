@@ -12,7 +12,10 @@ const router = Router();
 
 
 
-
+//To get to the signup page
+router.get('/register', (req, res) => {
+    res.render("./auth/signup");
+});
 
 
 // To register the user and store in the database
@@ -44,6 +47,15 @@ router.post("/register", checkSchema(createUserRegValSchema), async (req, res) =
     }
 });
 
+
+//TO get to the login page
+router.get('/login', (req, res) => {
+    req.session.user = null;
+     res.render("./auth/login", { error: null });
+    
+});
+
+
 // For alread registered users to login
 router.post("/login", async (req, res) => {
     console.log(req.body);
@@ -72,17 +84,20 @@ router.post("/login", async (req, res) => {
     }
 });
 
-//Just to get the login status, nothing much
-router.get('/api/users/login/status', (req, res) => {
-    req.sessionStore.get(req.sessionID, (err, session) => {
-        console.log(session);
-    });
-    // To create session
-    return req.session.email
-    ? res.status(200).send(req.session.email)
-    : res.status(401).send({ msg: "not Authenticated"});
-});
 
+router.get('/logout', (req, res) => {
+    req.session.user = null
+
+    req.session.destroy( err => {
+        if (err) {
+            console.error("Failed to destroy session:", err);
+        } else {
+             console.log("Logged out!",);
+            res.clearCookie('connect.sid');
+            res.redirect('/login');
+        }
+    });
+});
 
 
 
