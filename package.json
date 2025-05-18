@@ -1,7 +1,6 @@
 {
-  "name": "family-management-app",
+  "name": "family-management-app---complete-backend-no-frontend",
   "version": "1.0.0",
-  "description": "A family management app that allows user registration, login and management of family members",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,20 +9,19 @@
   "type": "module",
   "author": "",
   "license": "ISC",
+  "bugs": {},
+  "description": "",
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
-    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "express-session": "^1.18.1",
     "express-validator": "^7.2.1",
-    "flash": "^1.1.0",
-    "mongoose": "^8.13.2",
-    "passport": "^0.7.0",
-    "uuid": "^11.1.0"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
     "express": "^5.1.0",

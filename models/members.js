@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { isObjectIdOrHexString, isValidObjectId } from "mongoose";
 
 const MemberSchema = new mongoose.Schema({
     firstname: {
@@ -23,11 +23,26 @@ const MemberSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         required: true
     },
-    userid: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' //refrence from user
+    placeofresidence: {
+        type: mongoose.Schema.Types.String,
+        required: true
     },
-   
+    createdat: {
+        type: mongoose.Schema.Types.Date,
+        required: true
+    },
+    updatedat: {
+        type: mongoose.Schema.Types.Date,
+        required: true
+    },
+    mother: {
+        type: mongoose.Schema.Types.String,
+        required: true
+    },
+    father: {
+        type: mongoose.Schema.Types.String,
+        required: true
+    }
 });
 
 export const Member = mongoose.model("Member", MemberSchema);

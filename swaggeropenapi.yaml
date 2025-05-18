@@ -1,0 +1,220 @@
+
+# FAMILY MANAGEMENT OpenAPI
+
+openapi: 3.1.0
+
+info:
+  title: FAMILY MANAGEMENT BACKEND
+  version: '1.2'
+
+
+servers: 
+  - url: http://localhost:5000/
+    
+tags:
+  - name: members
+    description: CRUD operations on family members
+
+components:
+  schemas:
+    member:
+      type: object
+      properties:
+        _id:
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        age:
+          type: integer
+        dateofbirth:
+          type: string
+        gender:
+          type: string
+        placeofbirth:
+          type: string
+        createdat:
+          type: string
+        updatedat:
+          type: string
+        mother:
+          type: string
+        father: 
+          type: string
+    
+    users:
+      type: object
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+        age:
+          type: integer
+        password:
+          type: string
+        email:
+          type: string
+        datecreated:
+          type: string
+        
+paths:
+  /: 
+    get: 
+      summary: To check whether this API is working or not
+      description: To chek if this get method is working or not
+      responses:
+        200:
+          description: To test get method
+        400: 
+          description: not Good
+  # TO get all members
+  /api/members: 
+    get: 
+      summary: To check whether this API is working or not
+      description: To chek if this get method is working or not
+      responses:
+        200:
+          description: To test get method
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/member'
+        400: 
+          description: Bad request
+# To get one member by ID
+  /api/member/{id}: 
+    get: 
+      summary: To get users by Id
+      description: To get users by Id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description:  ID required
+          schema: 
+            type: string
+      responses:
+        200:
+          description: User exist
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/member'
+        400: 
+          description: Bad request
+        404:
+          description: User not found
+  
+# Add a member
+  /api/member: 
+    post: 
+      summary: Use for registering members
+      description: Use for registering members
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#components/schemas/member'
+
+      responses:
+        200:
+          description: Use for registering members
+          
+        400: 
+          description: Bad request
+  #To register Users
+  /api/auth/register: 
+    post: 
+      summary: Use for registering users
+      description: Use for registering users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#components/schemas/users'
+
+      responses:
+        200:
+          description: User created, You can now login
+          
+        400: 
+          description: Bad request
+  #To login users
+  /api/auth/login: 
+    post: 
+      summary: Use for logging users
+      description: Use for logging users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#components/schemas/users'
+
+      responses:
+        200:
+          description: User logged in
+          
+        400: 
+          description: Bad request
+
+
+  # To update a particular member
+  /api/member/update/{id}: 
+    patch: 
+      summary: To get users by Id
+      description: To get users by Id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Numeric ID required
+          schema: 
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#components/schemas/member'
+      responses:
+        200:
+          description: updated succesfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/member'
+        400: 
+          description: Bad request
+  
+# To delete a member 
+  /api/member/delete/{id}: 
+    delete: 
+      summary: To get delete members by Id
+      description: To get delete members by Id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: Numeric ID required
+          schema: 
+            type: string
+      responses:
+        200:
+          description: member is deleted
+          
+        400: 
+          description: failed to delete
+        404:
+          description: member not found
+  
