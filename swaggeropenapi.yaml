@@ -217,4 +217,15 @@ paths:
           description: failed to delete
         404:
           description: member not found
+
+  #logout
+  /logout: 
+    get: 
+      summary: To delete token
+      description: To delete token
+      responses:
+        200:
+          description: Token deleted
+        400: 
+          description: not Good
   

@@ -67,17 +67,7 @@ router.post("/api/auth/login", async (req, res) => {
 
 // logout endpoint
 router.get('/logout', (req, res) => {
-    req.session.user = null
-
-    req.session.destroy( err => {
-        if (err) {
-            console.error("Failed to destroy session:", err);
-        } else {
-             console.log("Logged out!",);
-            res.clearCookie('connect.sid');
-            res.redirect('/login');
-        }
-    });
+  res.cookie('jwt', '', { maxAge: 1 });
 });
 
 
